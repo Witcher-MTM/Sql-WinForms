@@ -15,41 +15,20 @@ namespace WinFormsApp1
         {
             InitializeComponent();
         }
-        private void Connection(string connectionstr)
+        public Form1(SqlConnection sqlConnection)
         {
-            if (sqlConnection.State == ConnectionState.Open)
+            InitializeComponent();
+            this.sqlConnection = sqlConnection;
+            using (SqlCommand command = new SqlCommand(@"SELECT name FROM sys.databases;", sqlConnection))
             {
-                sqlConnection.Close();
-            }
-            sqlConnection = new SqlConnection(connectionstr);
-            sqlConnection.Open();
-        }
-        private void nextBtn_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (this.serverTB.Text != string.Empty && this.loginTB.Text != string.Empty && this.loginTB.Text != string.Empty && this.passwordTB.Text != string.Empty)
+                using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    Connection($@"Data Source={this.serverTB.Text};Initial Catalog={this.loginTB.Text};UID={this.userTB.Text};Password={this.passwordTB.Text}");
-                    MessageBox.Show("Connected!");
-                    this.treeView1.Nodes.Clear();
-                    using (SqlCommand command = new SqlCommand(@"SELECT name FROM sys.databases;", sqlConnection))
+                    while (reader.Read())
                     {
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                object name = reader.GetValue(0);
-                                this.treeView1.Nodes.Add(name.ToString());
-                            }
-                        }
+                        object name = reader.GetValue(0);
+                        this.treeView1.Nodes.Add(name.ToString());
                     }
                 }
-               
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error connection");
             }
         }
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
@@ -57,7 +36,7 @@ namespace WinFormsApp1
             dbName = string.Empty;
             tableName = string.Empty;
             if ((sender as TreeView).SelectedNode.Parent != null &&
-     (sender as TreeView).SelectedNode.GetType() == typeof(TreeNode))
+            (sender as TreeView).SelectedNode.GetType() == typeof(TreeNode))
             {
                 dbName = (sender as TreeView).SelectedNode.Parent.Text;
                 tableName = (sender as TreeView).SelectedNode.Text;
@@ -68,7 +47,7 @@ namespace WinFormsApp1
             }
             if (isDatabaseExists(dbName))
             {
-                Connection($@"Data Source={this.serverTB.Text};Initial Catalog={dbName};UID={this.userTB.Text};Password={this.passwordTB.Text}");
+               
                 (sender as TreeView).SelectedNode.Nodes.Clear();
                 foreach (var item in Select(dbName, tableName))
                 {
@@ -176,6 +155,11 @@ namespace WinFormsApp1
             }
             else
                 MessageBox.Show("Select table!");
+        }
+
+        private void editToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
