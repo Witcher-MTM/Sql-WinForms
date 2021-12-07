@@ -112,7 +112,24 @@ namespace WinFormsApp1
                 }
             }
         }
-        private void showBtn_Click(object sender, EventArgs e)
+       
+        private void editToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (tableName != string.Empty)
+            {
+                if (isDatabaseExists(dbName))
+                {
+                    this.Hide();
+                    EditForm editForm = new EditForm(tableName, sqlConnection);
+                    editForm.ShowDialog();
+                    this.Show();
+                }
+            }
+            else
+                MessageBox.Show("Select table!");
+        }
+
+        private void showTableToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string data = string.Empty;
             if (tableName != string.Empty)
@@ -139,27 +156,6 @@ namespace WinFormsApp1
                     this.Show();
                 }
             }
-        }
-
-        private void editBtn_Click(object sender, EventArgs e)
-        {
-            if (tableName != string.Empty)
-            {
-                if (isDatabaseExists(dbName))
-                {
-                    this.Hide();
-                    EditForm editForm = new EditForm(tableName, sqlConnection);
-                    editForm.ShowDialog();
-                    this.Show();
-                }
-            }
-            else
-                MessageBox.Show("Select table!");
-        }
-
-        private void editToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
