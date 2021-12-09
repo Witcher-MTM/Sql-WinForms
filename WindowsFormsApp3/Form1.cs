@@ -160,20 +160,36 @@ namespace WinFormsApp1
         }
         private void insertToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MyConn.Action = procAction.INSERT;
-            Procedures proc = new Procedures(MyConn.Action);
-            this.Hide();
-            proc.ShowDialog();
-            this.Show();
+            if (isDatabaseExists(dbName))
+            {
+                MyConn.Action = procAction.INSERT;
+                Procedures proc = new Procedures(MyConn.Action,sqlConnection,dbName,tableName);
+                this.Hide();
+                proc.ShowDialog();
+                this.Show();
+            }
+            else
+            {
+                MessageBox.Show("Select table");
+            }
+
         }
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            MyConn.Action = procAction.CREATE;
-            Procedures proc = new Procedures(MyConn.Action);
-            this.Hide();
-            proc.ShowDialog();
-            this.Show();
+            if (isDatabaseExists(dbName))
+            {
+                MyConn.Action = procAction.CREATE;
+                Procedures proc = new Procedures(MyConn.Action, sqlConnection, dbName,tableName);
+                this.Hide();
+                proc.ShowDialog();
+                this.Show();
+            }
+            else
+            {
+                MessageBox.Show("Select table");
+            }
+          
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
