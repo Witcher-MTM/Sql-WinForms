@@ -33,6 +33,7 @@
             this.PasswordTB = new System.Windows.Forms.TextBox();
             this.DataBaseTB = new System.Windows.Forms.TextBox();
             this.ConnectionBtn = new System.Windows.Forms.Button();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // ServerTB
@@ -42,9 +43,9 @@
             this.ServerTB.Size = new System.Drawing.Size(217, 20);
             this.ServerTB.TabIndex = 0;
             this.ServerTB.Text = "Server";
+            this.ServerTB.Visible = false;
             this.ServerTB.Click += new System.EventHandler(this.ServerTB_Click);
             this.ServerTB.TextChanged += new System.EventHandler(this.ServerTB_TextChanged);
-            this.ServerTB.Visible = false;
             // 
             // UserNameTB
             // 
@@ -87,11 +88,22 @@
             this.ConnectionBtn.UseVisualStyleBackColor = true;
             this.ConnectionBtn.Click += new System.EventHandler(this.ConnectionBtn_Click);
             // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(273, 3);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 21);
+            this.comboBox1.TabIndex = 5;
+            this.comboBox1.Text = "Connections";
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(406, 450);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.ConnectionBtn);
             this.Controls.Add(this.DataBaseTB);
             this.Controls.Add(this.PasswordTB);
@@ -111,5 +123,6 @@
         private System.Windows.Forms.TextBox PasswordTB;
         private System.Windows.Forms.TextBox DataBaseTB;
         private System.Windows.Forms.Button ConnectionBtn;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }

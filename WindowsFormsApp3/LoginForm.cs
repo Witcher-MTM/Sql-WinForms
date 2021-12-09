@@ -16,11 +16,18 @@ namespace WinFormsApp1
         private string dbName = string.Empty;
         private string tableName = string.Empty;
         SqlConnection sqlConnection = new SqlConnection();
+        Connection connection = new Connection();
+        List<Connection> connections = new List<Connection>();
+        
         public LoginForm()
         {
-
             InitializeComponent();
             this.ServerTB.Visible = true;
+            connections = connection.ReadJson();
+            foreach (var item in connections)
+            {
+                this.comboBox1.Items.Add(item.Name);
+            }
         }
         private void Connection(string connectionstr)
         {
@@ -84,22 +91,26 @@ namespace WinFormsApp1
             if(text.Text=="UserName")
             {
                 this.UserNameTB.Text = string.Empty;
-                MessageBox.Show("Enter yout UID name");
+                MessageBox.Show("Enter your UID name");
             }
             else
             {
-                MessageBox.Show("Enter yout UID name");
+                MessageBox.Show("Enter your UID name");
             }
            
         }
 
         private void ConnectionBtn_Click(object sender, EventArgs e)
         {
+            Connection jsonCon = new Connection();
             try
             {
 
                 Connection($@"Data Source={this.ServerTB.Text};Initial Catalog={this.DataBaseTB.Text};UID={this.UserNameTB.Text};Password={this.PasswordTB.Text}");
-                MessageBox.Show("Connected!");
+                jsonCon.Server = this.ServerTB.Text;
+                jsonCon.DataBase = this.DataBaseTB.Text;
+                jsonCon.Name = this.UserNameTB.Text;
+                jsonCon.SaveJson(jsonCon);
                 Form1 form = new Form1(sqlConnection);
                 this.Hide();
                 form.ShowDialog();
@@ -157,6 +168,20 @@ namespace WinFormsApp1
             {
                 this.ConnectionBtn.Enabled = false;
             }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            foreach (var item in connections)
+            {
+                if (this.comboBox1.SelectedItem.ToString() == item.Name)
+                {
+                    this.DataBaseTB.Text = item.DataBase;
+                    this.ServerTB.Text = item.Server;
+                    this.UserNameTB.Text = item.Name;
+                }
+            }
+          
         }
     }
 }

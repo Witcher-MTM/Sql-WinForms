@@ -11,6 +11,7 @@ namespace WinFormsApp1
         private string dbName = string.Empty;
         private string tableName = string.Empty;
         SqlConnection sqlConnection = new SqlConnection();
+        Connection MyConn = new Connection();
         public Form1()
         {
             InitializeComponent();
@@ -156,6 +157,27 @@ namespace WinFormsApp1
                     this.Show();
                 }
             }
+        }
+        private void insertToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MyConn.Action = procAction.INSERT;
+            Procedures proc = new Procedures(MyConn.Action);
+            this.Hide();
+            proc.ShowDialog();
+            this.Show();
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            MyConn.Action = procAction.CREATE;
+            Procedures proc = new Procedures(MyConn.Action);
+            this.Hide();
+            proc.ShowDialog();
+            this.Show();
+        }
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Environment.Exit(0);
         }
     }
 }

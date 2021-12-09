@@ -28,7 +28,7 @@ namespace WinFormsApp1
             InitializeComponent();
             name = tableName;
             this.label.Text = $"Column name: \n{tableName}";
-            sqlConnection = connection;
+            this.sqlConnection = connection;
             this.valueTB.Enabled = false;
         }
 
