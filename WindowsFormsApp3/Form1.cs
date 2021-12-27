@@ -180,7 +180,7 @@ namespace WinFormsApp1
             if (isDatabaseExists(dbName))
             {
                 MyConn.Action = procAction.CREATE;
-                Procedures proc = new Procedures(MyConn.Action, sqlConnection, dbName,tableName);
+                Procedures proc = new Procedures(procAction.CREATE, sqlConnection, dbName,tableName);
                 this.Hide();
                 proc.ShowDialog();
                 this.Show();
@@ -194,6 +194,66 @@ namespace WinFormsApp1
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             Environment.Exit(0);
+        }
+
+        private void selectedTableToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (tableName != String.Empty)
+            {
+                this.LB_SelectedItem.Items.Clear();
+                using (SqlCommand command = new SqlCommand($@"SELECT * FROM {tableName};", sqlConnection))
+                {
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            object name = reader.GetValue(0);
+                            this.LB_SelectedItem.Items.Add(name.ToString());
+                           
+                        }
+                    }
+                }
+                if (LB_SelectedItem.Items.Count <= 0)
+                {
+                    MessageBox.Show("Table is empty");
+                }
+                else
+                {
+                    this.treeView1.Visible = false;
+                    this.LB_SelectedItem.Visible = true;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Select Table!");
+            }
+           
+        }
+
+        private void allDataBaseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.LB_SelectedItem.Items.Clear();
+            this.LB_SelectedItem.Visible = false;
+            using (SqlCommand command = new SqlCommand(@"SELECT name FROM sys.databases;", sqlConnection))
+            {
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        object name = reader.GetValue(0);
+                        this.treeView1.Nodes.Add(name.ToString());
+                    }
+                }
+            }
+            this.treeView1.Visible = true;
+        }
+
+        private void changeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Procedures proc = new Procedures(procAction.CHANGE, sqlConnection, dbName, tableName);
+            this.Hide();
+            proc.ShowDialog();
+            this.Show();
         }
     }
 }

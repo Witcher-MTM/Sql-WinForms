@@ -14,7 +14,8 @@ namespace WinFormsApp1
         DELETE,
         DROP,
         SELECT,
-        CREATE
+        CREATE,
+        CHANGE
         
     }
     public class Connection

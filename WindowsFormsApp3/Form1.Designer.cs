@@ -33,6 +33,7 @@ namespace WinFormsApp1
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.procedureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.insertToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -41,7 +42,11 @@ namespace WinFormsApp1
             this.reloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showTableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.queryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.insertToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.selectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.selectedTableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.allDataBaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.LB_SelectedItem = new System.Windows.Forms.ListBox();
+            this.changeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -63,7 +68,7 @@ namespace WinFormsApp1
             this.menuStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(454, 21);
+            this.menuStrip1.Size = new System.Drawing.Size(454, 23);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -72,7 +77,9 @@ namespace WinFormsApp1
             this.procedureToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem2,
             this.insertToolStripMenuItem,
-            this.deleteToolStripMenuItem});
+            this.deleteToolStripMenuItem,
+            this.selectToolStripMenuItem,
+            this.changeToolStripMenuItem});
             this.procedureToolStripMenuItem.Name = "procedureToolStripMenuItem";
             this.procedureToolStripMenuItem.Size = new System.Drawing.Size(68, 17);
             this.procedureToolStripMenuItem.Text = "Procedure";
@@ -83,6 +90,13 @@ namespace WinFormsApp1
             this.toolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem2.Text = "Create";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
+            // 
+            // insertToolStripMenuItem
+            // 
+            this.insertToolStripMenuItem.Name = "insertToolStripMenuItem";
+            this.insertToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.insertToolStripMenuItem.Text = "Insert";
+            this.insertToolStripMenuItem.Click += new System.EventHandler(this.insertToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem
             // 
@@ -105,32 +119,32 @@ namespace WinFormsApp1
             // createToolStripMenuItem
             // 
             this.createToolStripMenuItem.Name = "createToolStripMenuItem";
-            this.createToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.createToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.createToolStripMenuItem.Text = "Create";
             // 
             // deleteToolStripMenuItem1
             // 
             this.deleteToolStripMenuItem1.Name = "deleteToolStripMenuItem1";
-            this.deleteToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.deleteToolStripMenuItem1.Size = new System.Drawing.Size(128, 22);
             this.deleteToolStripMenuItem1.Text = "Delete";
             // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.editToolStripMenuItem.Text = "Edit";
             this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             // 
             // reloadToolStripMenuItem
             // 
             this.reloadToolStripMenuItem.Name = "reloadToolStripMenuItem";
-            this.reloadToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.reloadToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.reloadToolStripMenuItem.Text = "&Reload";
             // 
             // showTableToolStripMenuItem
             // 
             this.showTableToolStripMenuItem.Name = "showTableToolStripMenuItem";
-            this.showTableToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.showTableToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.showTableToolStripMenuItem.Text = "ShowTable";
             this.showTableToolStripMenuItem.Click += new System.EventHandler(this.showTableToolStripMenuItem_Click);
             // 
@@ -140,18 +154,51 @@ namespace WinFormsApp1
             this.queryToolStripMenuItem.Size = new System.Drawing.Size(47, 17);
             this.queryToolStripMenuItem.Text = "Query";
             // 
-            // insertToolStripMenuItem
+            // selectToolStripMenuItem
             // 
-            this.insertToolStripMenuItem.Name = "insertToolStripMenuItem";
-            this.insertToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.insertToolStripMenuItem.Text = "Insert";
-            this.insertToolStripMenuItem.Click += new System.EventHandler(this.insertToolStripMenuItem_Click);
+            this.selectToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.selectedTableToolStripMenuItem,
+            this.allDataBaseToolStripMenuItem});
+            this.selectToolStripMenuItem.Name = "selectToolStripMenuItem";
+            this.selectToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.selectToolStripMenuItem.Text = "Select";
+            // 
+            // selectedTableToolStripMenuItem
+            // 
+            this.selectedTableToolStripMenuItem.Name = "selectedTableToolStripMenuItem";
+            this.selectedTableToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.selectedTableToolStripMenuItem.Text = "Selected table";
+            this.selectedTableToolStripMenuItem.Click += new System.EventHandler(this.selectedTableToolStripMenuItem_Click);
+            // 
+            // allDataBaseToolStripMenuItem
+            // 
+            this.allDataBaseToolStripMenuItem.Name = "allDataBaseToolStripMenuItem";
+            this.allDataBaseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.allDataBaseToolStripMenuItem.Text = "All DataBase";
+            this.allDataBaseToolStripMenuItem.Click += new System.EventHandler(this.allDataBaseToolStripMenuItem_Click);
+            // 
+            // LB_SelectedItem
+            // 
+            this.LB_SelectedItem.FormattingEnabled = true;
+            this.LB_SelectedItem.Location = new System.Drawing.Point(12, 24);
+            this.LB_SelectedItem.Name = "LB_SelectedItem";
+            this.LB_SelectedItem.Size = new System.Drawing.Size(430, 394);
+            this.LB_SelectedItem.TabIndex = 5;
+            this.LB_SelectedItem.Visible = false;
+            // 
+            // changeToolStripMenuItem
+            // 
+            this.changeToolStripMenuItem.Name = "changeToolStripMenuItem";
+            this.changeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.changeToolStripMenuItem.Text = "Change";
+            this.changeToolStripMenuItem.Click += new System.EventHandler(this.changeToolStripMenuItem_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(454, 432);
+            this.Controls.Add(this.LB_SelectedItem);
             this.Controls.Add(this.treeView1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -179,6 +226,11 @@ namespace WinFormsApp1
         private System.Windows.Forms.ToolStripMenuItem queryToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showTableToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem insertToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem selectToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem selectedTableToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem allDataBaseToolStripMenuItem;
+        private System.Windows.Forms.ListBox LB_SelectedItem;
+        private System.Windows.Forms.ToolStripMenuItem changeToolStripMenuItem;
     }
 }
 
